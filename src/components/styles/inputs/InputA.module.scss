@@ -1,0 +1,51 @@
+.label {
+  color: #fff;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.input {
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  width: 100%;
+
+  &.inputError {
+    outline: red 2px solid;
+  }
+}
+
+.inputFile {
+  background-color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-bottom: 0;
+  padding: 0.5rem 1rem;
+}
+
+.inputFileWrapper {
+  align-items: center;
+  display: flex;
+  overflow: hidden;
+
+  & > div {
+    color: #fff;
+    padding-left: 1rem;
+  }
+}
+
+.group {
+  margin-bottom: 0.75rem;
+}
+
+.error {
+  color: red;
+  font-size: 0.825rem;
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
+
+.textarea {
+  resize: none;
+}

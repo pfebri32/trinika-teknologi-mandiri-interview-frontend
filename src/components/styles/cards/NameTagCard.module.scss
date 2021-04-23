@@ -1,0 +1,26 @@
+.card {
+  align-items: center;
+  background-color: #ccc;
+  border-radius: 20px;
+  display: flex;
+  padding: 0.1rem 0.5rem;
+  width: fit-content;
+
+  & > .icon {
+    color: #4ea5d9;
+    font-size: 1.5rem;
+    padding-right: 0.5rem;
+  }
+
+  & > .name {
+    color: #333;
+    font-size: 0.825rem;
+    font-weight: 500;
+    padding-right: 0.5rem;
+    white-space: nowrap;
+  }
+
+  &:not(:first-child) {
+    margin-left: 0.5rem;
+  }
+}
