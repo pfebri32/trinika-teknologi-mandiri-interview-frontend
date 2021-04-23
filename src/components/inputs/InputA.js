@@ -49,6 +49,7 @@ const InputA = ({ label, type, error, value, ...rest }) => {
             <input
               className={`${styles.input} ${error && styles.inputError}`}
               type={type}
+              value={value}
               {...rest}
             />
             {error && <div className={styles.error}>{error}</div>}
