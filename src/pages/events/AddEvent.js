@@ -9,14 +9,14 @@ import styles from '../styles/events/AddEvent.module.scss';
 
 const AddEvent = () => {
   return (
-    <Container className={styles.container}>
-      <Row className="no-gutters">
-        <Col md={6}>
+    <Container className={styles.container} fluid="md">
+      <Row className={`${styles.reverse} no-gutters`}>
+        <Col lg={6}>
           <div className={styles.leftContent}>
             <FormAddEvent />
           </div>
         </Col>
-        <Col md={6}>
+        <Col lg={6}>
           <div className={styles.rightContent}>
             <img
               className={styles.image}

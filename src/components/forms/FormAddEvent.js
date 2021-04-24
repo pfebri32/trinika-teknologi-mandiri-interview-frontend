@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
+import { Modal, Button } from 'react-bootstrap';
 
 // Configs.
 import { API, APIFormData } from '../../configs/api';
@@ -13,6 +14,8 @@ import styles from '../styles/forms/FormAddEvent.module.scss';
 const FormAddEvent = () => {
   // States.
   const [tagValues, setTagValues] = useState('');
+  const [modalShow, setModalShow] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
 
   // Formik validate.
   const validate = (values) => {
@@ -80,9 +83,13 @@ const FormAddEvent = () => {
         const res = await API.post('/event', body, APIFormData);
         console.log(res);
         setSubmitting(false);
+        setModalMessage('Success');
+        setModalShow(true);
       } catch (error) {
         console.log(error);
         setSubmitting(false);
+        setModalMessage('Failed');
+        setModalShow(true);
       }
     },
   });
@@ -96,87 +103,100 @@ const FormAddEvent = () => {
       })
     );
   return (
-    <form>
-      <div className={styles.header}>Add Event</div>
-      <div>
-        <InputA
-          label="Title"
-          name="title"
-          placeholder="Your title.."
-          type="text"
-          error={formik.touched.title && formik.errors.title}
-          value={formik.values.title}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-        <InputA
-          label="Location"
-          name="location"
-          placeholder="Location for meeting..."
-          type="text"
-          error={formik.touched.location && formik.errors.location}
-          value={formik.values.location}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-        <InputA
-          label="Participants"
-          type="tags"
-          name="participants"
-          error={formik.touched.participants && formik.errors.participants}
-          value={tagValues}
-          tags={formik.values.participants}
-          onDeleteTag={handleDeleteTag}
-          onChange={(e) => setTagValues(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' && e.target.value) {
-              const values = formik.values.participants;
-              const isDuplicate = values.find((val) => {
-                return val === e.target.value;
-              });
-              if (!isDuplicate) {
-                values.push(e.target.value);
-                formik.setFieldValue('participants', values);
+    <>
+      <form>
+        <div className={styles.header}>Add Event</div>
+        <div>
+          <InputA
+            label="Title"
+            name="title"
+            placeholder="Your title.."
+            type="text"
+            error={formik.touched.title && formik.errors.title}
+            value={formik.values.title}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          <InputA
+            label="Location"
+            name="location"
+            placeholder="Location for meeting..."
+            type="text"
+            error={formik.touched.location && formik.errors.location}
+            value={formik.values.location}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          <InputA
+            label="Participants"
+            type="tags"
+            name="participants"
+            error={formik.touched.participants && formik.errors.participants}
+            value={tagValues}
+            tags={formik.values.participants}
+            onDeleteTag={handleDeleteTag}
+            onChange={(e) => setTagValues(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && e.target.value) {
+                const values = formik.values.participants;
+                const isDuplicate = values.find((val) => {
+                  return val === e.target.value;
+                });
+                if (!isDuplicate) {
+                  values.push(e.target.value);
+                  formik.setFieldValue('participants', values);
+                }
+                setTagValues('');
               }
-              setTagValues('');
-            }
-          }}
-          onBlur={formik.handleBlur}
-        />
-        <InputA
-          label="Date"
-          name="date"
-          type="date"
-          error={formik.touched.date && formik.errors.date}
-          value={formik.values.date}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-        <InputA
-          rows={3}
-          label="Note"
-          name="note"
-          placeholder="Write your note here..."
-          type="textarea"
-          error={formik.touched.note && formik.errors.note}
-          value={formik.values.note}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-        <InputA
-          type="file"
-          label="Image"
-          name="image"
-          error={formik.touched.image && formik.errors.image}
-          value={formik.values.image?.name}
-          onChange={(e) => formik.setFieldValue('image', e.target.files[0])}
-          onBlur={formik.handleBlur}
-        />
-      </div>
-      <div className={styles.submit} onClick={formik.handleSubmit}>
-        Submit
-      </div>
-    </form>
+            }}
+            onBlur={formik.handleBlur}
+          />
+          <InputA
+            label="Date"
+            name="date"
+            type="date"
+            error={formik.touched.date && formik.errors.date}
+            value={formik.values.date}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          <InputA
+            rows={3}
+            label="Note"
+            name="note"
+            placeholder="Write your note here..."
+            type="textarea"
+            error={formik.touched.note && formik.errors.note}
+            value={formik.values.note}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          <InputA
+            type="file"
+            label="Image"
+            name="image"
+            error={formik.touched.image && formik.errors.image}
+            value={formik.values.image?.name}
+            onChange={(e) => formik.setFieldValue('image', e.target.files[0])}
+            onBlur={formik.handleBlur}
+          />
+        </div>
+        <div className={styles.submit} onClick={formik.handleSubmit}>
+          Submit
+        </div>
+      </form>
+      <Modal show={modalShow} onHide={() => setModalShow(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Event</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{modalMessage}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setModalShow(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
 
