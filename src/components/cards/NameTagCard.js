@@ -5,13 +5,13 @@ import React from 'react';
 // Styles.
 import styles from '../styles/cards/NameTagCard.module.scss';
 
-const NameTagCard = () => {
+const NameTagCard = ({ name }) => {
   return (
     <div className={styles.card}>
       <div className={styles.icon}>
         <FontAwesomeIcon icon={faUserCircle} />
       </div>
-      <div className={styles.name}>Febriansyah Putra</div>
+      <div className={styles.name}>{name}</div>
     </div>
   );
 };

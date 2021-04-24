@@ -48,6 +48,18 @@ const reducer = (state = initState, { type, payloads }) => {
         maxPage: Math.ceil(filteredSearchLocation.length / 5),
       };
     case 'SEARCH_PARTICIPANT':
+      const filteredSearchParticipants = state.events.filter(
+        ({ participants }) =>
+          participants.find(({ name }) => name.includes(payloads.name))
+            ? true
+            : false
+      );
+      return {
+        ...state,
+        filtered: filteredSearchParticipants,
+        filteredLength: filteredSearchParticipants.length,
+        maxPage: Math.ceil(filteredSearchParticipants.length / 5),
+      };
       return;
     case 'SEARCH_NOTE':
       const filteredSearchNote = state.events.filter(({ note }) =>

@@ -35,7 +35,7 @@ const Home = ({ event, initEvent }) => {
 
   // Renders.
   const renderEvents = () =>
-    event.events.map(({ image, location, title, date, note }) => {
+    event.events.map(({ image, location, title, date, note, participants }) => {
       const temp = new Date(date);
       let dateString = temp.getDay() + ' ';
       dateString += getMonthString(temp.getMonth()) + ' ';
@@ -48,6 +48,7 @@ const Home = ({ event, initEvent }) => {
             title={title}
             date={dateString}
             note={note}
+            participants={participants}
           />
         </Col>
       );

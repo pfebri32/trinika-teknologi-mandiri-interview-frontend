@@ -8,7 +8,9 @@ import styles from '../styles/cards/EventCard.module.scss';
 // Components.
 import NameTagCard from './NameTagCard';
 
-const EventCard = ({ img, location, title, date, note }) => {
+const EventCard = ({ img, location, title, date, note, participants }) => {
+  const renderNameTags = () =>
+    participants.map(({ name }) => <NameTagCard name={name} />);
   return (
     <div className={styles.card}>
       <div className={styles.image}>
@@ -24,12 +26,7 @@ const EventCard = ({ img, location, title, date, note }) => {
         <div className={styles.title}>{title}</div>
         <div className={styles.date}>{date}</div>
       </div>
-      <div className={styles.participants}>
-        <NameTagCard />
-        <NameTagCard />
-        <NameTagCard />
-        <NameTagCard />
-      </div>
+      <div className={styles.participants}>{renderNameTags()}</div>
       <div className={styles.note}>
         <div className={styles.label}>Note :</div>
         <div className={styles.content}>{note}</div>

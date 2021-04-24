@@ -18,7 +18,15 @@ import { getMonthString } from '../configs/date';
 // Styles.
 import styles from './styles/Dashboard.module.scss';
 
-const Dashboard = ({ initEvent, event, searchId, searchTitle }) => {
+const Dashboard = ({
+  initEvent,
+  event,
+  searchId,
+  searchTitle,
+  searchLocation,
+  searchNote,
+  searchParticipants,
+}) => {
   // States.
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -110,7 +118,7 @@ const Dashboard = ({ initEvent, event, searchId, searchTitle }) => {
     <Container className={styles.container}>
       <InputGroup className={styles.search}>
         <FormControl
-          placeholder="Recipient's username"
+          placeholder="Search..."
           aria-label="Recipient's username"
           aria-describedby="basic-addon2"
           type="text"
@@ -141,9 +149,30 @@ const Dashboard = ({ initEvent, event, searchId, searchTitle }) => {
           >
             Title
           </Dropdown.Item>
-          <Dropdown.Item href="#">Location</Dropdown.Item>
-          <Dropdown.Item href="#">Participant</Dropdown.Item>
-          <Dropdown.Item href="#">Note</Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => {
+              setPage(1);
+              searchLocation(search);
+            }}
+          >
+            Location
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => {
+              setPage(1);
+              searchParticipants(search);
+            }}
+          >
+            Participant
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => {
+              setPage(1);
+              searchNote(search);
+            }}
+          >
+            Note
+          </Dropdown.Item>
         </DropdownButton>
       </InputGroup>
       <Table variant="dark" striped bordered hover responsive>
@@ -178,6 +207,8 @@ const mapDispatchToProps = (dispatch) => {
     searchLocation: (location) =>
       dispatch({ type: 'SEARCH_LOCATION', payloads: { location } }),
     searchNote: (note) => dispatch({ type: 'SEARCH_NOTE', payloads: { note } }),
+    searchParticipants: (name) =>
+      dispatch({ type: 'SEARCH_PARTICIPANT', payloads: { name } }),
   };
 };
 
