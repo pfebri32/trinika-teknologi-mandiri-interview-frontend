@@ -25,6 +25,37 @@
   white-space: nowrap;
 }
 
+.tags {
+  align-items: center;
+  background-color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  overflow-x: auto;
+  padding: 0.5rem;
+  width: 100%;
+
+  &.inputError {
+    outline: red 2px solid;
+  }
+
+  & > .value {
+    background-color: #555;
+    border-radius: 5px;
+    color: #fff;
+    margin-right: 0.5rem;
+    padding: 0.5rem;
+    white-space: nowrap;
+  }
+}
+
+.inputTags {
+  border: none;
+  flex: 1;
+  min-width: 200px;
+}
+
 .inputFileWrapper {
   align-items: center;
   display: flex;

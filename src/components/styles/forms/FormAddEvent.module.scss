@@ -6,13 +6,17 @@
 }
 
 .submit {
+  align-items: center;
   background-color: #4ea5d9;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
   color: #fff;
-  display: block;
+  display: flex;
   font-weight: 700;
+  justify-content: center;
   margin-left: auto;
   min-width: 160px;
   padding: 0.5rem 1rem;
+  width: fit-content;
 }
